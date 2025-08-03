@@ -7,6 +7,7 @@ import { GiSkills } from "react-icons/gi";
 
 
 
+
 export default function Skills({showMySkills, setShowMySkills, botSkillAbove, skillsRef}) {
 
   const [positionOfMouse, setPositionOfMouse] = useState({x: 600, y: 300});

@@ -1,4 +1,4 @@
-export default function AskToShutDownOrNot({nameOfFolderOne, cancelBtnClicked}) {
+export default function AskToShutDownOrNot({nameOfFolderOne, cancelBtnClicked, callShudownAnyWay}) {
   return (
     <div className=" absolute top-0 left-0 w-screen h-screen bg-blue-600/40 z-50 flex justify-center items-center">
       <div className="h-1/2 w-1/2 bg-[#005a9e] rounded shadow-2xl p-10 ps-20 z-70 text-stone-100 flex flex-col gap-10">
@@ -40,7 +40,7 @@ export default function AskToShutDownOrNot({nameOfFolderOne, cancelBtnClicked}) 
         
 
         <div className=" flex gap-4" >
-          <button className="bg-gray-100/10 p-3 cursor-pointer">Shut down anyway </button>
+          <button onClick={callShudownAnyWay} className="bg-gray-100/10 p-3 cursor-pointer">Shut down anyway </button>
           <button onClick={cancelBtnClicked} className="bg-gray-100/10 p-3 cursor-pointer">Cancel</button>
         </div>
 

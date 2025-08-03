@@ -3,8 +3,7 @@ import { GiSkills } from "react-icons/gi";
 import { FaWindows } from "react-icons/fa";
 import { RiFolderUserFill } from "react-icons/ri";
 import { MdFolderSpecial } from "react-icons/md";
-
-
+import { BsFillFolderSymlinkFill } from "react-icons/bs";
 
 
 import AboutMe from "./components/AboutMe";
@@ -14,6 +13,7 @@ import { setNewOffset } from "./utils/NewOffSet";
 import Skills from "./components/Skills";
 import AskToShutDownOrNot from "./components/AskToShutDownOrNot";
 import ShutDown from "./components/ShutDown";
+import MyProject from "./components/myProject";
 
 
 function App() {
@@ -22,6 +22,7 @@ function App() {
   const [startWindos, setShowStartWindos] = useState(false);
   const [showMyInfo, setShowMyInfo] = useState(false);
   const [showMySkills, setShowMySkills] = useState(false);
+  const [showMyProject, setShowMyProject] = useState(false);
 
   const [showAsk, setShowAsk] = useState(false);
   const [nameOfFolderOpen, setNameOfFolderOpen] = useState("");
@@ -30,16 +31,26 @@ function App() {
 
   const skillsRef = useRef(null);
   const aboutRef = useRef(null);
+  const myProjectRef = useRef(null);
 
   function botAboutAbove() {
     setShowStartWindos(false);
     aboutRef.current.style.zIndex = 10;
     skillsRef.current.style.zIndex = 0;
+    myProjectRef.current.style.zIndex = 0;
   }
   
   function botSkillAbove() {
     setShowStartWindos(false);
     skillsRef.current.style.zIndex = 10;
+    aboutRef.current.style.zIndex = 0;
+    myProjectRef.current.style.zIndex = 0;
+  }
+
+  function botMyProjectAbove() {
+    setShowStartWindos(false);
+    myProjectRef.current.style.zIndex = 10;
+    skillsRef.current.style.zIndex = 0;
     aboutRef.current.style.zIndex = 0;
   }
 
@@ -67,18 +78,36 @@ function App() {
   function handelClickCancel() {
     setShowAsk(false);
   }
+
+  function callShudownAnyWay() {
+    setShutDown(true)
+  }
+
+  function handelOpenWindowns() {
+    setShutDown(false);
+  }
   
 
   return (
     <>
 
       {showAsk && <AskToShutDownOrNot 
+        callShudownAnyWay={callShudownAnyWay}
         nameOfFolderOne={nameOfFolderOpen} 
         cancelBtnClicked={handelClickCancel}
+        
+        />}
+
+      {showMyProject && <MyProject 
+        showMyProject={showMyProject}
+        setShowMyProject={setShowMyProject} 
+        botMyProjectAbove={botMyProjectAbove}
+        myProjectRef={myProjectRef}
+        
         />}
 
 
-      {shutDown && <ShutDown/>}
+      {shutDown && <ShutDown handelOpenWindowns={handelOpenWindowns}/>}
 
       <div className="relative w-screen h-screen">
 
@@ -105,7 +134,7 @@ function App() {
                 setShowMyInfo(!showMyInfo)
               }
             }
-            className=" text-6xl text-amber-200 cursor-pointer" 
+            className=" text-7xl text-amber-200 cursor-pointer ml-50" 
             />
           <MdFolderSpecial 
             onClick={() => {
@@ -113,8 +142,13 @@ function App() {
                 setShowMySkills(!showMySkills)
               }
             }
-            className=" text-6xl text-amber-200 cursor-pointer mt-2" 
+            className=" text-7xl text-amber-200 cursor-pointer mt-42 ml-96" 
           />
+
+          <BsFillFolderSymlinkFill 
+            onClick={() => setShowMyProject(true)}
+            className=" text-6xl w-30 text-amber-200 cursor-pointer mt-50 ml-50 " />
+
 
         </div>
 
