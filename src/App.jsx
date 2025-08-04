@@ -111,10 +111,15 @@ function App() {
 
       <div className="relative w-screen h-screen">
 
-        <div
+        {/* <div
           onClick={()=> setShowStartWindos(false)}
-          className="bg-[url('backgorundwin11.jpg')] bg-no-repeat bg-cover bg- w-screen h-screen absolute" >
-        </div>
+          className="bg-[url('backgorundwin113.jpg')] bg-no-repeat bg-cover bg- w-screen h-screen absolute" >
+        </div> */}
+        <img 
+          onClick={()=> setShowStartWindos(false)}
+          src="backgorundwin113.jpg" 
+          className="bg-[url('backgorundwin113.jpg')] bg-no-repeat bg-cover bg- w-screen h-screen absolute" alt="" 
+          />
 
         <div className="absolute bottom-3 z-10 right-2  font-bold">
           <div className="flex gap-2" >
@@ -145,9 +150,9 @@ function App() {
             className=" text-7xl text-amber-200 cursor-pointer mt-42 ml-96" 
           />
 
-          <BsFillFolderSymlinkFill 
+          {/* <BsFillFolderSymlinkFill 
             onClick={() => setShowMyProject(true)}
-            className=" text-6xl w-30 text-amber-200 cursor-pointer mt-50 ml-50 " />
+            className=" text-6xl w-30 text-amber-200 cursor-pointer mt-50 ml-50 " /> */}
 
 
         </div>
