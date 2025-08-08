@@ -10,7 +10,7 @@ import { GiSkills } from "react-icons/gi";
 
 export default function Skills({showMySkills, setShowMySkills, botSkillAbove, skillsRef}) {
 
-  const [positionOfMouse, setPositionOfMouse] = useState({x: 600, y: 300});
+  const [positionOfMouse, setPositionOfMouse] = useState({x: 50, y: 100});
   
 
   const mouseDown = (e) => {
@@ -42,6 +42,11 @@ export default function Skills({showMySkills, setShowMySkills, botSkillAbove, sk
     document.removeEventListener("mousemove", mouseMove);
     document.removeEventListener("mouseup", mouseUp);
   }
+
+  function closeShowMySkills() {
+    setShowMySkills(!showMySkills)
+    skillsRef.current.style.zIndex = 0;
+  }
   return (
     <div 
       onMouseDown={botSkillAbove}
@@ -51,7 +56,7 @@ export default function Skills({showMySkills, setShowMySkills, botSkillAbove, sk
         left: positionOfMouse.x+`px`,
         top: positionOfMouse.y+`px`
       }}
-      className='bg-white rounded w-2/4 h-[500px] absolute text-gray-600 shadow-sm' >
+      className='bg-white rounded w-2/4 h-[500px] absolute text-gray-600 shadow-2xl z-50' >
 
       <div onMouseDown={mouseDown} className=" bg-[#f3f4f6]/70 p-2 cursor-grabbing rounded-t flex justify-between text-2xl fixed w-1/2">
 
@@ -63,13 +68,13 @@ export default function Skills({showMySkills, setShowMySkills, botSkillAbove, sk
         </div>
 
         <div className="flex gap-2 pt-1" >
-          <FaRegSquareMinus onClick={() => setShowMySkills(!showMySkills)} className=" cursor-pointer" />
-          <FaRegSquarePlus  onClick={() => setShowMySkills(!showMySkills)} className=" cursor-pointer"/>
+          <FaRegSquareMinus onClick={() => closeShowMySkills()} className=" cursor-pointer" />
+          <FaRegSquarePlus  onClick={() => closeShowMySkills()} className=" cursor-pointer"/>
         </div>
 
       </div>
 
-      <div className="mt-10 p-10 ">
+      <div className="mt-10 p-10  overflow-y-scroll max-h-[460px]">
 
         <p className="font-main text-2xl" >These are the tools I Learn them these 3 years, but I'm always happy to explore new ones.</p>
 
@@ -97,6 +102,20 @@ export default function Skills({showMySkills, setShowMySkills, botSkillAbove, sk
             </div>
 
             <div className="flex items-center gap-2 mt-3" >
+              <img className="h-10" src="icons8-c-48.png" alt="" />
+              <span className="text-lg font-bold" >C#</span>
+            </div>
+            <div className="flex items-center gap-2 mt-3" >
+              <img className="h-10" src="icons8-.net-framework-48.png" alt="" />
+              <span className="text-lg font-bold" >APS.NET CORE</span>
+            </div>
+            
+            <div className="flex items-center gap-2 mt-3" >
+              <img className="h-10" src="icons8-sql-server-48.png" alt="" />
+              <span className="text-lg font-bold" >SQL Server</span>
+            </div>
+
+            <div className="flex items-center gap-2 mt-3" >
               <img className="h-10" src="Tailwind CSS.svg" alt="" />
               <span className="text-lg font-bold" >Tailwind CSS</span>
             </div>
@@ -108,6 +127,16 @@ export default function Skills({showMySkills, setShowMySkills, botSkillAbove, sk
             <div className="flex items-center gap-2 mt-3" >
               <img className="h-10" src="Node.js.svg" alt="" />
               <span className="text-lg font-bold" >Node.js </span>
+            </div>
+
+            <div className="flex items-center gap-2 mt-3" >
+              <img className="h-10" src="icons8-next.js-48.png" alt="" />
+              <span className="text-lg font-bold" >Next.js </span>
+            </div>
+
+            <div className="flex items-center gap-2 mt-3" >
+              <img className="h-10" src="React.svg" alt="" />
+              <span className="text-lg font-bold" >R3F</span>
             </div>
 
             <div className="flex items-center gap-2 mt-3" >

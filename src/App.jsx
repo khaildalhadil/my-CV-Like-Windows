@@ -54,6 +54,16 @@ function App() {
     aboutRef.current.style.zIndex = 0;
   }
 
+  function setUserOnTop() {
+    aboutRef.current.style.zIndex = 1000;
+    skillsRef.current.style.zIndex = 0;
+  }
+
+  function setSkillsOnTop() {
+    aboutRef.current.style.zIndex = 0;
+    skillsRef.current.style.zIndex = 1000;
+  }
+
   const date = new Date();
 
   function handelShutDown() {
@@ -81,6 +91,9 @@ function App() {
 
   function callShudownAnyWay() {
     setShutDown(true)
+    setShowAsk(false)
+    setShowMyInfo(false)
+    setShowMySkills(false)
   }
 
   function handelOpenWindowns() {
@@ -121,7 +134,7 @@ function App() {
           className="bg-[url('backgorundwin113.jpg')] bg-no-repeat bg-cover bg- w-screen h-screen absolute" alt="" 
           />
 
-        <div className="absolute bottom-3 z-10 right-2  font-bold">
+        <div className="absolute bottom-3 z-100 right-2  font-bold">
           <div className="flex gap-2" >
             <div className="flex flex-col text-sm items-center">
               <span>{date.toLocaleTimeString()}</span>
@@ -132,11 +145,12 @@ function App() {
         </div>
 
         {/* icons In window */}
-        <div className=" absolute top-3 left-5">
+        <div className=" absolute top-3 left-5 flex">
           <RiFolderUserFill 
             onClick={() => {
                 setShowStartWindos(false)
                 setShowMyInfo(!showMyInfo)
+                // setUserOnTop()
               }
             }
             className=" text-7xl text-amber-200 cursor-pointer ml-50" 
@@ -145,9 +159,10 @@ function App() {
             onClick={() => {
                 setShowStartWindos(false)
                 setShowMySkills(!showMySkills)
+                // setSkillsOnTop();
               }
             }
-            className=" text-7xl text-amber-200 cursor-pointer mt-42 ml-96" 
+            className=" text-7xl text-amber-200 cursor-pointer ml-96" 
           />
 
           {/* <BsFillFolderSymlinkFill 
