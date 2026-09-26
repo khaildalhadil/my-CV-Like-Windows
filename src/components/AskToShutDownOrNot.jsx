@@ -1,50 +1,27 @@
-export default function AskToShutDownOrNot({nameOfFolderOne, cancelBtnClicked, callShudownAnyWay}) {
+export default function AskToShutDownOrNot({ titles, onShutDown, onCancel }) {
   return (
-    <div className=" absolute top-0 left-0 w-screen h-screen bg-blue-600/40 z-90 flex justify-center items-center">
-      <div className="h-1/2 w-1/2 bg-[#005a9e] rounded shadow-2xl p-6 ps-20 z-70 text-stone-100 flex flex-col gap-4">
-        <div>
-          <h1 className="text-3xl" >Closing {nameOfFolderOne == "about and skills" ? 2: 1} app and shutting down</h1>
-          <p>To go back and Closing Evertything, click Cancel and finish what you need to.</p>
-        </div>
+    <div className="fixed inset-0 z-[2000] grid place-items-center bg-[#0067c0]/40 backdrop-blur-sm">
+      <div className="w-[min(560px,92vw)] rounded-lg bg-[#005a9e] p-8 text-white shadow-2xl">
+        <h1 className="text-2xl font-light">Closing {titles.length} app{titles.length > 1 && "s"} and shutting down</h1>
+        <p className="mt-2 text-sm text-white/80">To go back and save your work, click Cancel and finish what you need to.</p>
 
-        {nameOfFolderOne == "about and skills" ?
-
-          <>
-            <div className=" flex gap-4">
-              <img src="task.png" alt="task" className="h-10 " />
+        <ul className="mt-6 space-y-3">
+          {titles.map((title) => (
+            <li key={title} className="flex items-center gap-3">
+              <img src="task.png" alt="" className="h-8" />
               <div>
-                <p>Task About</p>
-                <p className=" text-stone-200/50">Task About is opend </p>
+                <p>{title}</p>
+                <p className="text-xs text-white/60">This app is open</p>
               </div>
-            </div>
+            </li>
+          ))}
+        </ul>
 
-            <div className="flex gap-4">
-              <img src="task.png" alt="task" className="h-10 " />
-              <div>
-                <p>Task skills</p>
-                <p className=" text-stone-200/50">Task skills is opend </p>
-              </div>
-            </div>
-          </>
-
-          : <div className=" flex gap-4">
-            <img src="task.png" alt="task" className="h-10 " />
-            <div>
-              <p>Task {nameOfFolderOne}</p>
-              <p className=" text-stone-200/50">Task {nameOfFolderOne} is opend </p>
-            </div>
-          </div>
-
-        }
-
-        
-
-        <div className=" flex gap-4" >
-          <button onClick={callShudownAnyWay} className="bg-gray-100/10 p-3 cursor-pointer">Shut down anyway </button>
-          <button onClick={cancelBtnClicked} className="bg-gray-100/10 p-3 cursor-pointer">Cancel</button>
+        <div className="mt-8 flex gap-3">
+          <button onClick={onShutDown} className="bg-white/15 px-4 py-2 hover:bg-white/25">Shut down anyway</button>
+          <button onClick={onCancel} className="bg-white/15 px-4 py-2 hover:bg-white/25">Cancel</button>
         </div>
-
       </div>
     </div>
-  )
+  );
 }

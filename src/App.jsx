@@ -1,199 +1,196 @@
-import { RiFolderUserLine } from "react-icons/ri";
-import { GiSkills } from "react-icons/gi";
-import { FaWindows } from "react-icons/fa";
-import { RiFolderUserFill } from "react-icons/ri";
-import { MdFolderSpecial } from "react-icons/md";
-import { BsFillFolderSymlinkFill } from "react-icons/bs";
-
+import { useRef, useState } from "react";
+import { FcBusinessman, FcCommandLine, FcFolder } from "react-icons/fc";
 
 import AboutMe from "./components/AboutMe";
-import { useRef, useState } from "react";
-import DiskWindows from "./components/DiskWindows";
-import { setNewOffset } from "./utils/NewOffSet";
 import Skills from "./components/Skills";
+import MyProject from "./components/MyProject";
+import Window from "./components/Window";
+import Taskbar from "./components/Taskbar";
+import StartMenu from "./components/StartMenu";
 import AskToShutDownOrNot from "./components/AskToShutDownOrNot";
 import ShutDown from "./components/ShutDown";
-import MyProject from "./components/myProject";
 
+// Every app appears as a desktop icon, a taskbar button, a Start tile and a window.
+const APPS = {
+  about: { title: "About Me", Icon: FcBusinessman, Content: AboutMe, size: { w: 900, h: 580 }, pos: { x: 150, y: 30 } },
+  skills: { title: "Skills", Icon: FcCommandLine, Content: Skills, size: { w: 660, h: 540 }, pos: { x: 230, y: 60 } },
+  projects: { title: "My Projects", Icon: FcFolder, Content: MyProject, size: { w: 860, h: 560 }, pos: { x: 310, y: 90 } },
+};
 
-function App() {
+const GRID_X0 = 8, GRID_Y0 = 8, GRID_W = 88, GRID_H = 100;
 
-  // const [showAboutMe, setShowAboutMe] = useState(false)
-  const [startWindos, setShowStartWindos] = useState(false);
-  const [showMyInfo, setShowMyInfo] = useState(false);
-  const [showMySkills, setShowMySkills] = useState(false);
-  const [showMyProject, setShowMyProject] = useState(false);
-
-  const [showAsk, setShowAsk] = useState(false);
-  const [nameOfFolderOpen, setNameOfFolderOpen] = useState("");
-
-  const [shutDown, setShutDown] = useState(false);
-
-  const skillsRef = useRef(null);
-  const aboutRef = useRef(null);
-  const myProjectRef = useRef(null);
-
-  function botAboutAbove() {
-    setShowStartWindos(false);
-    aboutRef.current.style.zIndex = 10;
-    skillsRef.current.style.zIndex = 0;
-    myProjectRef.current.style.zIndex = 0;
-  }
-  
-  function botSkillAbove() {
-    setShowStartWindos(false);
-    skillsRef.current.style.zIndex = 10;
-    aboutRef.current.style.zIndex = 0;
-    myProjectRef.current.style.zIndex = 0;
-  }
-
-  function botMyProjectAbove() {
-    setShowStartWindos(false);
-    myProjectRef.current.style.zIndex = 10;
-    skillsRef.current.style.zIndex = 0;
-    aboutRef.current.style.zIndex = 0;
-  }
-
-  function setUserOnTop() {
-    aboutRef.current.style.zIndex = 1000;
-    skillsRef.current.style.zIndex = 0;
-  }
-
-  function setSkillsOnTop() {
-    aboutRef.current.style.zIndex = 0;
-    skillsRef.current.style.zIndex = 1000;
-  }
-
-  const date = new Date();
-
-  function handelShutDown() {
-
-    setShowStartWindos(false);
-
-
-    if (showMyInfo && showMySkills) {
-      setNameOfFolderOpen("about and skills");
-      setShowAsk(true)
-    } else if (showMyInfo) {
-      setNameOfFolderOpen("about");
-      setShowAsk(true)
-    } else if (showMySkills) {
-      setNameOfFolderOpen("skills");
-      setShowAsk(true)
-    } else {
-      setShutDown(true);
-    }
-  }
-
-  function handelClickCancel() {
-    setShowAsk(false);
-  }
-
-  function callShudownAnyWay() {
-    setShutDown(true)
-    setShowAsk(false)
-    setShowMyInfo(false)
-    setShowMySkills(false)
-  }
-
-  function handelOpenWindowns() {
-    setShutDown(false);
-  }
-  
+// Click to open, drag to move (a press that moves more than 5px is a drag, not a click).
+function DesktopIcon({ app, pos, selected, onSelect, onMove, onDrop, onOpen }) {
+  const drag = useRef(null);
 
   return (
-    <>
-
-      {showAsk && <AskToShutDownOrNot 
-        callShudownAnyWay={callShudownAnyWay}
-        nameOfFolderOne={nameOfFolderOpen} 
-        cancelBtnClicked={handelClickCancel}
-        
-        />}
-
-      {showMyProject && <MyProject 
-        showMyProject={showMyProject}
-        setShowMyProject={setShowMyProject} 
-        botMyProjectAbove={botMyProjectAbove}
-        myProjectRef={myProjectRef}
-        
-        />}
-
-
-      {shutDown && <ShutDown handelOpenWindowns={handelOpenWindowns}/>}
-
-      <div className="relative w-screen h-screen">
-
-        {/* <div
-          onClick={()=> setShowStartWindos(false)}
-          className="bg-[url('backgorundwin113.jpg')] bg-no-repeat bg-cover bg- w-screen h-screen absolute" >
-        </div> */}
-        <img 
-          onClick={()=> setShowStartWindos(false)}
-          src="backgorundwin113.jpg" 
-          className="bg-[url('backgorundwin113.jpg')] bg-no-repeat bg-cover bg- w-screen h-screen absolute" alt="" 
-          />
-
-        <div className="absolute bottom-3 z-100 right-2  font-bold">
-          <div className="flex gap-2" >
-            <div className="flex flex-col text-sm items-center">
-              <span>{date.toLocaleTimeString()}</span>
-              <span>{date.getDate() + "/" + date.getMonth() +"/" + date.getFullYear()}</span>
-            </div>
-            <img src="./flag.png" alt="oman flag" className="w-6 h-6 mt-2" />
-          </div>
-        </div>
-
-        {/* icons In window */}
-        <div className=" absolute top-3 left-5 flex">
-          <RiFolderUserFill 
-            onClick={() => {
-                setShowStartWindos(false)
-                setShowMyInfo(!showMyInfo)
-                // setUserOnTop()
-              }
-            }
-            className=" text-7xl text-amber-200 cursor-pointer ml-50" 
-            />
-          <MdFolderSpecial 
-            onClick={() => {
-                setShowStartWindos(false)
-                setShowMySkills(!showMySkills)
-                // setSkillsOnTop();
-              }
-            }
-            className=" text-7xl text-amber-200 cursor-pointer ml-96" 
-          />
-
-          {/* <BsFillFolderSymlinkFill 
-            onClick={() => setShowMyProject(true)}
-            className=" text-6xl w-30 text-amber-200 cursor-pointer mt-50 ml-50 " /> */}
-
-
-        </div>
-
-          <div>
-            {showMyInfo && <AboutMe botAboutAbove={botAboutAbove} aboutRef={aboutRef} setShowMyInfo={setShowMyInfo} showMyInfo={showMyInfo}/> }
-            {startWindos && <DiskWindows shutDown={handelShutDown} />}
-            {showMySkills && <Skills botSkillAbove={botSkillAbove} skillsRef={skillsRef} setShowMySkills={setShowMySkills} showMySkills={showMySkills}  />}
-          </div>
-
-
-          <div 
-            className="fixed bottom-0 p-3 w-screen bg-gray-300/95 z-30" >
-            <div className="flex gap-32 ">
-              <FaWindows 
-                className=" text-4xl p-1 ms-4 rounded hover:bg-gray-300  hover:text-blue-600 cursor-pointer" 
-                onClick={()=> setShowStartWindos(!startWindos)}
-              />
-
-              {/* <RiFolderUserLine onClick={() => setShowAboutMe(!showAboutMe)} className=" cursor-pointer text-5xl " />
-              <GiSkills className="cursor-pointer text-5xl" /> */}
-            </div>
-          </div>
-      </div>
-    </>
-  )
+    <button
+      style={{ left: pos.x, top: pos.y }}
+      onPointerDown={(e) => {
+        if (e.button !== 0) return;
+        onSelect();
+        drag.current = { sx: e.clientX, sy: e.clientY, x: pos.x, y: pos.y, moved: false };
+        e.currentTarget.setPointerCapture(e.pointerId);
+      }}
+      onPointerMove={(e) => {
+        const d = drag.current;
+        if (!d) return;
+        const dx = e.clientX - d.sx, dy = e.clientY - d.sy;
+        if (!d.moved && Math.hypot(dx, dy) < 5) return;
+        d.moved = true;
+        onMove({
+          x: Math.min(Math.max(d.x + dx, 0), innerWidth - 80),
+          y: Math.min(Math.max(d.y + dy, 0), innerHeight - 48 - 96),
+        });
+      }}
+      onPointerUp={() => {
+        const d = drag.current;
+        drag.current = null;
+        if (!d) return;
+        if (d.moved) onDrop();
+        else onOpen();
+      }}
+      onKeyDown={(e) => e.key === "Enter" && onOpen()}
+      className={`absolute flex w-20 touch-none select-none flex-col items-center gap-1 rounded p-2 text-xs text-white
+        [text-shadow:0_1px_3px_#000] hover:bg-white/15 ${selected ? "bg-white/25 ring-1 ring-white/40" : ""}`}
+    >
+      <app.Icon className="pointer-events-none text-5xl drop-shadow" />
+      {app.title}
+    </button>
+  );
 }
 
-export default App;
+export default function App() {
+  const [open, setOpen] = useState([]);              // open app ids, last one is in front
+  const [minimized, setMinimized] = useState({});
+  const [maximized, setMaximized] = useState({});
+  const [selected, setSelected] = useState(null);
+  const [startOpen, setStartOpen] = useState(false);
+  const [askShutDown, setAskShutDown] = useState(false);
+  const [off, setOff] = useState(false);
+
+  const [iconPos, setIconPos] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("iconPos")) || {};
+    } catch {
+      return {};
+    }
+  });
+
+  // snap the dropped icon to the desktop grid and remember the layout for next visit
+  function saveIconPos() {
+    setIconPos((s) => {
+      const snapped = Object.fromEntries(Object.entries(s).map(([id, p]) => [id, {
+        x: GRID_X0 + Math.round((p.x - GRID_X0) / GRID_W) * GRID_W,
+        y: GRID_Y0 + Math.round((p.y - GRID_Y0) / GRID_H) * GRID_H,
+      }]));
+      try {
+        localStorage.setItem("iconPos", JSON.stringify(snapped));
+      } catch { /* private mode: layout just isn't remembered */ }
+      return snapped;
+    });
+  }
+
+  const active = open.filter((id) => !minimized[id]).at(-1);
+  const setFlag = (set, id, value) => set((s) => ({ ...s, [id]: value }));
+  const toFront = (id) => setOpen((o) => [...o.filter((x) => x !== id), id]);
+
+  function openApp(id) {
+    setStartOpen(false);
+    setFlag(setMinimized, id, false);
+    if (!open.includes(id) && innerWidth < 768) setFlag(setMaximized, id, true);
+    toFront(id);
+  }
+
+  function closeApp(id) {
+    setOpen((o) => o.filter((x) => x !== id));
+    setFlag(setMaximized, id, false);
+  }
+
+  // Windows taskbar behaviour: click the front window to minimize it, anything else brings it forward
+  function taskbarClick(id) {
+    if (id === active) setFlag(setMinimized, id, true);
+    else openApp(id);
+  }
+
+  function shutDown() {
+    setStartOpen(false);
+    if (open.length) setAskShutDown(true);
+    else setOff(true);
+  }
+
+  function shutDownAnyway() {
+    setAskShutDown(false);
+    setOpen([]);
+    setMinimized({});
+    setMaximized({});
+    setOff(true);
+  }
+
+  if (off) return <ShutDown onStart={() => setOff(false)} />;
+
+  return (
+    <div
+      className="fixed inset-0 bg-[url('/backgorundwin113.jpg')] bg-cover bg-center"
+      onPointerDown={(e) => {
+        if (e.target !== e.currentTarget) return;
+        setSelected(null);
+        setStartOpen(false);
+      }}
+    >
+      {Object.entries(APPS).map(([id, app], i) => (
+        <DesktopIcon
+          key={id}
+          app={app}
+          pos={iconPos[id] ?? { x: GRID_X0, y: GRID_Y0 + i * GRID_H }}
+          selected={selected === id}
+          onSelect={() => { setSelected(id); setStartOpen(false); }}
+          onMove={(p) => setIconPos((s) => ({ ...s, [id]: p }))}
+          onDrop={saveIconPos}
+          onOpen={() => openApp(id)}
+        />
+      ))}
+
+      {/* stable DOM order so windows keep their scroll; stacking comes from z-index */}
+      {Object.keys(APPS).filter((id) => open.includes(id)).map((id) => {
+        const app = APPS[id];
+        return (
+          <Window
+            key={id}
+            app={app}
+            z={10 + open.indexOf(id)}
+            active={id === active}
+            minimized={!!minimized[id]}
+            maximized={!!maximized[id]}
+            onFocus={() => { setStartOpen(false); toFront(id); }}
+            onMinimize={() => setFlag(setMinimized, id, true)}
+            onToggleMax={() => setFlag(setMaximized, id, !maximized[id])}
+            onClose={() => closeApp(id)}
+          >
+            <app.Content />
+          </Window>
+        );
+      })}
+
+      {startOpen && <StartMenu apps={APPS} onOpen={openApp} onShutDown={shutDown} />}
+
+      <Taskbar
+        apps={APPS}
+        open={open}
+        active={active}
+        startOpen={startOpen}
+        onStart={() => setStartOpen((s) => !s)}
+        onApp={taskbarClick}
+        onShowDesktop={() => setMinimized(Object.fromEntries(open.map((id) => [id, true])))}
+      />
+
+      {askShutDown && (
+        <AskToShutDownOrNot
+          titles={open.map((id) => APPS[id].title)}
+          onShutDown={shutDownAnyway}
+          onCancel={() => setAskShutDown(false)}
+        />
+      )}
+    </div>
+  );
+}
