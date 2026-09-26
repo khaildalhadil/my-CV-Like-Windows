@@ -3,7 +3,11 @@ import { VscChromeClose, VscChromeMaximize, VscChromeMinimize, VscChromeRestore 
 
 // One Windows 11 style window: drag by the title bar, minimize / maximize / close.
 export default function Window({ app, z, active, minimized, maximized, onFocus, onMinimize, onToggleMax, onClose, children }) {
-  const [pos, setPos] = useState(app.pos);
+  // open inside the visible desktop even on small screens (e.g. the 3D laptop's 854x534 screen)
+  const [pos, setPos] = useState(() => ({
+    x: Math.max(0, Math.min(app.pos.x, innerWidth - app.size.w)),
+    y: Math.max(0, Math.min(app.pos.y, innerHeight - 48 - app.size.h)),
+  }));
   const drag = useRef(null);
 
   function startDrag(e) {

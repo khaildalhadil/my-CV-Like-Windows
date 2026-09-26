@@ -44,9 +44,9 @@ export const projects = [
   {
     name: "3D Portal Scene",
     description: "Low-poly 3D scene with a glowing portal, fences and rocks, rendered in the browser.",
-    image: "projects/wonderful-bavarois-4e6c6a.jpg",
+    image: "projects/khalid-portal.jpg",
     tech: ["Three.js"],
-    link: "https://wonderful-bavarois-4e6c6a.netlify.app/",
+    link: "https://khalid-portal.netlify.app/",
   },
   {
     name: "Search GitHub Users",
@@ -68,13 +68,6 @@ export const projects = [
     image: "projects/lightui101.jpg",
     tech: ["React", "ESP32"],
     link: "https://lightui101.netlify.app/",
-  },
-  {
-    name: "Green Gym",
-    description: "Gym web app with user accounts and sign-in.",
-    image: "projects/green-gym.jpg",
-    tech: ["React", "React Router", "Tailwind CSS"],
-    link: "https://green-gym.netlify.app/",
   },
   {
     name: "GreenSip Coffee",

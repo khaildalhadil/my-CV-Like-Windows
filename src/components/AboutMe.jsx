@@ -44,7 +44,7 @@ export default function AboutMe() {
       <ul className="mt-4 space-y-3 border-l-2 border-[#0067c0]/30 pl-5 font-main text-lg">
         <li><b className="font-sans text-sm text-[#0067c0]">2023</b><br />Started programming.</li>
         <li><b className="font-sans text-sm text-[#0067c0]">2025</b><br />Web apps like Gulf College Chat, GreenSip Coffee and Search GitHub Users — and my first steps into 3D: a portal scene, a physics game and my first 3D CV.</li>
-        <li><b className="font-sans text-sm text-[#0067c0]">2026</b><br />Green Gym and an ESP32 relay controller, then more 3D browser games: Oman Chase, Reach the Top and Esbaar Drone.</li>
+        <li><b className="font-sans text-sm text-[#0067c0]">2026</b><br />An ESP32 relay controller, then more 3D browser games: Oman Chase, Reach the Top and Esbaar Drone.</li>
         <li><b className="font-sans text-sm text-[#0067c0]">2026</b><br />Final year — graduating with a Bachelor's in Computer Science.</li>
       </ul>
 
