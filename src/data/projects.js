@@ -2,6 +2,13 @@
 // Shape: { name, description, image: "projects/name.jpg" (file in public/projects), tech: ["React", ...], link: "https://..." }
 export const projects = [
   {
+    name: "3D Laptop Portfolio",
+    description: "An Onsor laptop I modelled in Blender, shown in 3D — rotate it, and use this Windows CV live on its screen.",
+    image: "projects/khalid-alhadi.jpg",
+    tech: ["Blender", "React Three Fiber", "Three.js"],
+    link: "https://khalid-alhadi.netlify.app/",
+  },
+  {
     name: "Esbaar Drone · درون اسبار",
     description: "3D drone game: fly over an oil field, inspect 8 glowing valves and track down a hidden oil leak with the sensor — and get back to the pad before the battery dies.",
     image: "projects/esbaar.jpg",
@@ -23,11 +30,37 @@ export const projects = [
     link: "https://khalid-game-1.netlify.app/",
   },
   {
+    name: "3D Physics Game",
+    description: "3D game against the clock with a physics-driven character and items, built as GLB models.",
+    tech: ["React Three Fiber", "Rapier physics", "GSAP"],
+    link: "https://khalid-game.netlify.app/",
+  },
+  {
+    name: "My CV in 3D",
+    description: "My earlier portfolio: an interactive 3D room you explore to learn about me.",
+    tech: ["React Three Fiber", "Three.js", "GSAP"],
+    link: "https://khalid-cv.netlify.app/",
+  },
+  {
+    name: "3D Portal Scene",
+    description: "Low-poly 3D scene with a glowing portal, fences and rocks, rendered in the browser.",
+    image: "projects/wonderful-bavarois-4e6c6a.jpg",
+    tech: ["Three.js"],
+    link: "https://wonderful-bavarois-4e6c6a.netlify.app/",
+  },
+  {
     name: "Search GitHub Users",
     description: "Look up any GitHub user by name, and browse the top 200 GitHub accounts in Oman.",
     image: "projects/search-github-account.jpg",
     tech: ["React", "Tailwind CSS", "GitHub API"],
     link: "https://search-github-account.netlify.app/",
+  },
+  {
+    name: "Gulf College Chat",
+    description: "Chat board for Gulf College students with channels per level (3–6), public chat, college news and a suggestions box.",
+    image: "projects/gulfcollegechat.jpg",
+    tech: ["React", "Supabase"],
+    link: "https://gulfcollegechat.netlify.app/",
   },
   {
     name: "ESP32 Relay Control",
