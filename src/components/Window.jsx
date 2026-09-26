@@ -3,10 +3,14 @@ import { VscChromeClose, VscChromeMaximize, VscChromeMinimize, VscChromeRestore 
 
 // One Windows 11 style window: drag by the title bar, minimize / maximize / close.
 export default function Window({ app, z, active, minimized, maximized, onFocus, onMinimize, onToggleMax, onClose, children }) {
-  // open inside the visible desktop even on small screens (e.g. the 3D laptop's 854x534 screen)
+  // on small screens (e.g. the 3D laptop's 854x534 screen) open smaller than the desktop, like a real window
+  const [size] = useState(() => ({
+    w: Math.min(app.size.w, Math.round(innerWidth * 0.7)),
+    h: Math.min(app.size.h, Math.round((innerHeight - 48) * 0.76)),
+  }));
   const [pos, setPos] = useState(() => ({
-    x: Math.max(0, Math.min(app.pos.x, innerWidth - app.size.w)),
-    y: Math.max(0, Math.min(app.pos.y, innerHeight - 48 - app.size.h)),
+    x: Math.max(0, Math.min(app.pos.x * Math.min(1, innerWidth / 1280), innerWidth - size.w)),
+    y: Math.max(0, Math.min(app.pos.y * Math.min(1, innerHeight / 800), innerHeight - 48 - size.h)),
   }));
   const drag = useRef(null);
 
@@ -19,14 +23,14 @@ export default function Window({ app, z, active, minimized, maximized, onFocus, 
   function moveDrag(e) {
     if (!drag.current) return;
     setPos({
-      x: Math.min(Math.max(e.clientX - drag.current.dx, 120 - app.size.w), innerWidth - 120),
+      x: Math.min(Math.max(e.clientX - drag.current.dx, 120 - size.w), innerWidth - 120),
       y: Math.min(Math.max(e.clientY - drag.current.dy, 0), innerHeight - 100),
     });
   }
 
   const frame = maximized
     ? { left: 0, top: 0, width: "100vw", height: "calc(100vh - 48px)" }
-    : { left: pos.x, top: pos.y, width: `min(${app.size.w}px, 100vw)`, height: `min(${app.size.h}px, calc(100vh - 48px))` };
+    : { left: pos.x, top: pos.y, width: size.w, height: size.h };
 
   return (
     <section
