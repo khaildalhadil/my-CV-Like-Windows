@@ -3,6 +3,40 @@
 @theme {
   --font-main: "Harmattan", sans-serif;
 }
+
 body {
   overflow: hidden;
+  font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+}
+
+/* window open / minimize animations */
+.win {
+  animation: win-open 0.18s ease-out;
+  transition: opacity 0.15s, transform 0.15s;
+}
+.win-min {
+  opacity: 0;
+  transform: translateY(60px) scale(0.92);
+  pointer-events: none;
+}
+.start {
+  animation: start-open 0.2s ease-out;
+}
+@keyframes win-open {
+  from { opacity: 0; transform: scale(0.94); }
+}
+@keyframes start-open {
+  from { opacity: 0; transform: translateY(24px); }
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid #ffffff33;
+  border-top-color: #fff;
+  animation: spin 0.9s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
